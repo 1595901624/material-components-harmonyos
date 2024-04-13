@@ -8,8 +8,6 @@ import { RippleLayout } from '../../basic/RippleLayout'
 export struct MDButton {
   build() {
     RippleLayout({
-      rippleWidth: 200,
-      rippleHeight: 40,
       contentLayout: () => {
         this.contentLayout()
       }
