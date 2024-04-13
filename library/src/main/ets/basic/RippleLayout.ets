@@ -36,7 +36,7 @@ export struct RippleLayout {
     this.context.arc(this._touchX, this._touchY, this._rippleRadius, 0, 6.28)
     this.context.fillStyle = '#4af2f2f2'
     this.context.fill()
-    console.log('updateCanvas')
+    // console.log('updateCanvas')
   }
 
   build() {
@@ -86,7 +86,7 @@ export struct RippleLayout {
         this.context.clearRect(0, 0, this.context.width, this.context.height)
         break;
       case TouchType.Move:
-        this._rippleRadius = 30;
+        // this._rippleRadius = 30;
         break;
       case TouchType.Cancel:
 
@@ -116,7 +116,7 @@ export struct RippleLayout {
         return
       }
       this._rippleRadius += 3
-    }, 1)
+    }, 24)
 
     this.interval = id
   }

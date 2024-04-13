@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\luhao\\.ohos\\config\\default_material-components-harmonyos_jSvAriScuhVJBRFlGKm3EY1e6P7HApMC16ubufN4BOc=.cer",
+          "storePassword": "0000001A51C75A7995AF65A12D8A2F5C3BC2F603E205E3F7F86D25B4371ACA3A1C97921B567D8DEA1617",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A6AEDB3CF50AA8D05E177F40F0C4F252954433353F4019260DCF44FE570445481092A9EE2D2C9",
+          "profile": "C:\\Users\\luhao\\.ohos\\config\\default_material-components-harmonyos_jSvAriScuhVJBRFlGKm3EY1e6P7HApMC16ubufN4BOc=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\luhao\\.ohos\\config\\default_material-components-harmonyos_jSvAriScuhVJBRFlGKm3EY1e6P7HApMC16ubufN4BOc=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
@@ -35,14 +49,6 @@
     {
       "name": "library",
       "srcPath": "./library",
-      "targets": [
-        {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
     }
   ]
 }
