@@ -10,30 +10,43 @@
 @Preview
 export struct RippleLayout {
   /**
-   * The width of the ripple effect.
+   * The background radius of the ripple effect.
    */
-  rippleWidth: Length = 0;
+  backgroundRadius: number = 4
   /**
-   * The height of the ripple effect.
+   * The maximum radius of the ripple effect.
    */
-  rippleHeight: Length = 0;
+  maxRippleRadius: number = 100
+
+  /**
+   * The minimum radius of the ripple effect.
+   */
+  minRippleRadius: number = 30
+
   /**
    * The radius of the ripple effect.
    */
-  radius: number = 4
+  @State @Watch("updateCanvas") _currenRippleRadius: number = this.minRippleRadius;
   @BuilderParam contentLayout: () => void
   // ************************************private params**********************************************88
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
-  @State @Watch("updateCanvas") _rippleRadius: number = 30;
   @State private _touchX: number = 0;
   @State private _touchY: number = 0;
+  /**
+   * The width of the ripple effect.
+   */
+  @State rippleWidth: Length = 0;
+  /**
+   * The height of the ripple effect.
+   */
+  @State rippleHeight: Length = 0;
 
   updateCanvas(): void {
     // clear canvas
     this.context.clearRect(0, 0, this.context.width, this.context.height)
     this.context.beginPath()
-    this.context.arc(this._touchX, this._touchY, this._rippleRadius, 0, 6.28)
+    this.context.arc(this._touchX, this._touchY, this._currenRippleRadius, 0, 6.28)
     this.context.fillStyle = '#4af2f2f2'
     this.context.fill()
     // console.log('updateCanvas')
@@ -48,11 +61,16 @@ export struct RippleLayout {
         .onReady(() => {
 
         })
-        .borderRadius(this.radius)
-      this.contentLayout();
+        .borderRadius(this.backgroundRadius)
+
+      Column() {
+        this.contentLayout();
+      }.onAreaChange((oldValue: Area, newValue: Area) => {
+        console.log('onAreaChange', newValue.width, newValue.height)
+        this.rippleWidth = newValue.width;
+        this.rippleHeight = newValue.height;
+      })
     }
-    .width(this.rippleWidth)
-    .height(this.rippleHeight)
     .onTouch((event: TouchEvent) => {
       this.handleTouch(event)
     })
@@ -60,13 +78,13 @@ export struct RippleLayout {
     //   this.rippleWidth = newValue.width;
     //   this.rippleHeight = newValue.height;
     // })
-    .shadow({
-      radius: 3,
-      color: Color.Gray,
-      offsetX: 0,
-      offsetY: 3
-    })
-    .borderRadius(this.radius)
+    // .shadow({
+    //   radius: 3,
+    //   color: Color.Gray,
+    //   offsetX: 0,
+    //   offsetY: 3
+    // })
+    .borderRadius(this.backgroundRadius)
   }
 
   aboutToAppear(): void {
@@ -76,17 +94,15 @@ export struct RippleLayout {
   handleTouch(event: TouchEvent): void {
     switch (event.type) {
       case TouchType.Down:
-        this._rippleRadius = 30;
+        this._currenRippleRadius = this.minRippleRadius;
         this.startRipple(event.touches[0].x, event.touches[0].y)
         break;
       case TouchType.Up:
-      // this._rippleRadius = 30;
         this.stopRipple()
-        this._rippleRadius = 30;
+        this._currenRippleRadius = this.minRippleRadius;
         this.context.clearRect(0, 0, this.context.width, this.context.height)
         break;
       case TouchType.Move:
-        // this._rippleRadius = 30;
         break;
       case TouchType.Cancel:
 
@@ -112,10 +128,11 @@ export struct RippleLayout {
     this._touchY = y
 
     let id = setInterval(() => {
-      if (this._rippleRadius >= 300) {
+      if (this._currenRippleRadius >= this.maxRippleRadius) {
+        this._currenRippleRadius = this.maxRippleRadius
         return
       }
-      this._rippleRadius += 3
+      this._currenRippleRadius += 3
     }, 24)
 
     this.interval = id

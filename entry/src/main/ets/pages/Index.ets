@@ -15,14 +15,15 @@ struct Index {
         //   .fontWeight(FontWeight.Bold)
 
         RippleLayout({
-          rippleWidth: 200,
-          rippleHeight: 40,
+          backgroundRadius: 16,
+          maxRippleRadius: 200,
+          minRippleRadius: 10,
           contentLayout: () => {
             this.contentLayout()
           }
         })
 
-        this.contentLayout()
+        // this.contentLayout()
       }
       .width('100%')
     }
@@ -43,5 +44,7 @@ struct Index {
           })
         })
     }.justifyContent(FlexAlign.Center)
+    .width(200)
+    .height(40)
   }
 }
