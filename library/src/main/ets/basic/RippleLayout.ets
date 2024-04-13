@@ -1,6 +1,7 @@
 /*
- * Copyright (c) , zanglikun 2024. cloris
+ * Copyright (c) , cloris 2024.
  */
+import { RippleEvent } from './RippleEvent'
 
 /**
  * This is a ripple layout.
@@ -16,18 +17,28 @@ export struct RippleLayout {
   /**
    * The maximum radius of the ripple effect.
    */
-  maxRippleRadius: number = 100
-
+  @Prop maxRippleRadius: number = 100
   /**
    * The minimum radius of the ripple effect.
    */
-  minRippleRadius: number = 30
-
+  @Prop minRippleRadius: number = 30
+  /**
+   * The background color of the ripple effect.
+   */
+  rippleBackgroundColor: ResourceColor = Color.Transparent
   /**
    * The radius of the ripple effect.
    */
   @State @Watch("updateCanvas") _currenRippleRadius: number = this.minRippleRadius;
   @BuilderParam contentLayout: () => void
+  /**
+   * Enable press water ripple effect
+   */
+  stateEffect: boolean = true
+  /**
+   * The callback function when the user touches the layout.
+   */
+  onRippleTouch?: (event: RippleEvent) => void
   // ************************************private params**********************************************88
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
@@ -57,7 +68,7 @@ export struct RippleLayout {
       Canvas(this.context)
         .width(this.rippleWidth)
         .height(this.rippleHeight)
-        .backgroundColor("#1976D2")
+        .backgroundColor(this.rippleBackgroundColor)
         .onReady(() => {
 
         })
@@ -95,10 +106,12 @@ export struct RippleLayout {
     switch (event.type) {
       case TouchType.Down:
         this._currenRippleRadius = this.minRippleRadius;
+        this.onRippleTouch?.(RippleEvent.RIPPLE_START)
         this.startRipple(event.touches[0].x, event.touches[0].y)
         break;
       case TouchType.Up:
         this.stopRipple()
+        this.onRippleTouch?.(RippleEvent.RIPPLE_END)
         this._currenRippleRadius = this.minRippleRadius;
         this.context.clearRect(0, 0, this.context.width, this.context.height)
         break;
@@ -124,6 +137,9 @@ export struct RippleLayout {
    * @param y: the y position of the touch
    */
   startRipple(x: number, y: number): void {
+    if (!this.stateEffect) {
+      return
+    }
     this._touchX = x
     this._touchY = y
 
@@ -133,7 +149,7 @@ export struct RippleLayout {
         return
       }
       this._currenRippleRadius += 3
-    }, 24)
+    }, 10)
 
     this.interval = id
   }

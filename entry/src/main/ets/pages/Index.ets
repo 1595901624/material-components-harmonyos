@@ -1,15 +1,17 @@
-import { RippleLayout } from '@cloris/material-components/Index';
+import { MDFilledButton, RippleLayout } from '@cloris/material-components/Index';
 import { promptAction } from '@kit.ArkUI';
 
 @Entry
 @Component
 @Preview
 struct Index {
-  @State message: string = 'Hello World';
+  @State message: string = 'Ripple Layout';
 
   build() {
     Row() {
-      Column() {
+      Column({
+        space: 20
+      }) {
         // Text(this.message)
         //   .fontSize(50)
         //   .fontWeight(FontWeight.Bold)
@@ -17,9 +19,22 @@ struct Index {
         RippleLayout({
           backgroundRadius: 16,
           maxRippleRadius: 200,
+          rippleBackgroundColor: Color.Orange,
           minRippleRadius: 10,
           contentLayout: () => {
             this.contentLayout()
+          }
+        })
+
+        MDFilledButton({
+          label: "Filled Button",
+          buttonBackgroundColor: Color.Red,
+          buttonRadius: 40,
+          onButtonClick: () => {
+            promptAction.showToast({
+              message: 'Hello World',
+              duration: 2000
+            })
           }
         })
 
