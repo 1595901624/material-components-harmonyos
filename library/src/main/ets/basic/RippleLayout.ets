@@ -1,10 +1,31 @@
+/*
+ * Copyright (c) , zanglikun 2024. cloris
+ */
+
+/**
+ * This is a ripple layout.
+ * When the user touches the layout, the ripple effect will be displayed.
+ */
 @Component
-@Entry
 @Preview
-export struct Ripple {
+export struct RippleLayout {
+  /**
+   * The width of the ripple effect.
+   */
+  rippleWidth: Length = 0;
+  /**
+   * The height of the ripple effect.
+   */
+  rippleHeight: Length = 0;
+  /**
+   * The radius of the ripple effect.
+   */
+  radius: number = 4
+  @BuilderParam contentLayout: () => void
+  // ************************************private params**********************************************88
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
-  @State @Watch("updateCanvas") _radius: number = 30;
+  @State @Watch("updateCanvas") _rippleRadius: number = 30;
   @State private _touchX: number = 0;
   @State private _touchY: number = 0;
 
@@ -12,7 +33,7 @@ export struct Ripple {
     // clear canvas
     this.context.clearRect(0, 0, this.context.width, this.context.height)
     this.context.beginPath()
-    this.context.arc(this._touchX, this._touchY, this._radius, 0, 6.28)
+    this.context.arc(this._touchX, this._touchY, this._rippleRadius, 0, 6.28)
     this.context.fillStyle = '#4af2f2f2'
     this.context.fill()
     console.log('updateCanvas')
@@ -21,42 +42,31 @@ export struct Ripple {
   build() {
     Stack() {
       Canvas(this.context)
-        .width(200)
-        .height(40)
+        .width(this.rippleWidth)
+        .height(this.rippleHeight)
         .backgroundColor("#1976D2")
         .onReady(() => {
 
-          // this.context.arc(100, 100, this._radius, 0, 6.28)
-          // this.context.fillStyle = '#000000'
-          // this.context.fill()
         })
-        .borderRadius(4)
-      // Circle({
-      //   width: this._radius,
-      //   height: this._radius
-      // })
-      Column() {
-        Text("你好")
-          .fontColor(Color.White)
-      }.width(200)
-      .height(40)
-      .borderRadius(4)
-      .justifyContent(FlexAlign.Center)
+        .borderRadius(this.radius)
+      this.contentLayout();
     }
+    .width(this.rippleWidth)
+    .height(this.rippleHeight)
     .onTouch((event: TouchEvent) => {
       this.handleTouch(event)
     })
+    // .onAreaChange((oldValue: Area, newValue: Area) => {
+    //   this.rippleWidth = newValue.width;
+    //   this.rippleHeight = newValue.height;
+    // })
     .shadow({
       radius: 3,
       color: Color.Gray,
       offsetX: 0,
       offsetY: 3
     })
-    .borderRadius(4)
-    .position({
-      x: "20%",
-      y: "50%"
-    })
+    .borderRadius(this.radius)
   }
 
   aboutToAppear(): void {
@@ -66,17 +76,17 @@ export struct Ripple {
   handleTouch(event: TouchEvent): void {
     switch (event.type) {
       case TouchType.Down:
-        this._radius = 30;
+        this._rippleRadius = 30;
         this.startRipple(event.touches[0].x, event.touches[0].y)
         break;
       case TouchType.Up:
-      // this._radius = 30;
+      // this._rippleRadius = 30;
         this.stopRipple()
-        this._radius = 30;
+        this._rippleRadius = 30;
         this.context.clearRect(0, 0, this.context.width, this.context.height)
         break;
       case TouchType.Move:
-        this._radius = 30;
+        this._rippleRadius = 30;
         break;
       case TouchType.Cancel:
 
@@ -102,10 +112,10 @@ export struct Ripple {
     this._touchY = y
 
     let id = setInterval(() => {
-      if (this._radius >= 300) {
+      if (this._rippleRadius >= 300) {
         return
       }
-      this._radius += 3
+      this._rippleRadius += 3
     }, 1)
 
     this.interval = id

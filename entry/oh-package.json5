@@ -5,6 +5,8 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    "@cloris/material-components": "file:../library"
+  }
 }
 
