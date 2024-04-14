@@ -26,6 +26,13 @@ export struct RippleLayout {
    * The background color of the ripple effect.
    */
   rippleBackgroundColor: ResourceColor = Color.Transparent
+
+  /**
+   * The foreground color of the ripple effect.
+   * only support string type now.
+   * @default "#4af2f2f2"
+   */
+  rippleForegroundColor: string = "#4af2f2f2"
   /**
    * The radius of the ripple effect.
    */
@@ -58,7 +65,7 @@ export struct RippleLayout {
     this.context.clearRect(0, 0, this.context.width, this.context.height)
     this.context.beginPath()
     this.context.arc(this._touchX, this._touchY, this._currenRippleRadius, 0, 6.28)
-    this.context.fillStyle = '#4af2f2f2'
+    this.context.fillStyle = this.rippleForegroundColor
     this.context.fill()
     // console.log('updateCanvas')
   }
