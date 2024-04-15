@@ -1,9 +1,10 @@
 {
   "name": "@cloris/material-components",
-  "version": "1.0.0",
-  "description": "Please describe the basic information .",
+  "version": "0.0.1-alpha",
+  "description": "A material components library for HarmonyOS.",
   "main": "Index.ets",
-  "author": "",
+  "author": "cloris",
+  "repository": "https://github.com/1595901624/material-components-harmonyos",
   "license": "Apache-2.0",
   "packageType": "InterfaceHar",
   "dependencies": {
