@@ -6,13 +6,14 @@ import { RippleEvent } from '../../basic/RippleEvent'
 import { RippleLayout } from '../../basic/RippleLayout'
 
 /**
- * The filled button’s contrasting surface color makes it
- * the most prominent button after the FAB.
- * It’s used for final or unblocking actions in a flow.
+ * Elevated buttons are essentially filled buttons
+ * with a lighter background color and a shadow.
+ * To prevent shadow creep, only use them when absolutely necessary,
+ * such as when the button requires visual separation from a patterned background.
  */
 @Component
 @Preview
-export struct MDFilledButton {
+export struct MDElevatedButton {
   /**
    * The label of the button.
    */
@@ -49,10 +50,10 @@ export struct MDFilledButton {
   // *************************************************
   @State private _rippleRadius: number = 100
   @State private _shadowOptions: ShadowOptions = {
-    radius: 0,
+    radius: 3,
     color: Color.Gray,
-    offsetX: 0,
-    offsetY: 0
+    offsetX: -1,
+    offsetY: 3
   }
 
   build() {
@@ -66,21 +67,21 @@ export struct MDFilledButton {
         this.contentLayout()
       },
       onRippleTouch: (event) => {
-        if (event === RippleEvent.RIPPLE_START) {
-          this._shadowOptions = {
-            radius: 3,
-            color: Color.Gray,
-            offsetX: 0,
-            offsetY: 3
-          }
-        } else {
-          this._shadowOptions = {
-            radius: 0,
-            color: Color.Gray,
-            offsetX: 0,
-            offsetY: 0
-          }
-        }
+        // if (event === RippleEvent.RIPPLE_START) {
+        //   this._shadowOptions = {
+        //     radius: 3,
+        //     color: Color.Gray,
+        //     offsetX: -5,
+        //     offsetY: 5
+        //   }
+        // } else {
+        //   this._shadowOptions = {
+        //     radius: 3,
+        //     color: Color.Gray,
+        //     offsetX: 0,
+        //     offsetY: 3
+        //   }
+        // }
       }
     })
   }
