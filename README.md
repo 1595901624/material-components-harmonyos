@@ -11,9 +11,9 @@ A Material Components for HarmonyOS. 一个鸿蒙的 Material 组件库
 - [x] RippleLayout 涟漪效果
 - [ ] Button 按钮
     - [x] FilledButton
+    - [x] ElevatedButton
     - [ ] OutlinedButton
     - [ ] TextButton
-    - [ ] ElevatedButton
     - [ ] FilledTonalButton
 
 ## 支持版本
@@ -22,6 +22,11 @@ A Material Components for HarmonyOS. 一个鸿蒙的 Material 组件库
 ## 问题反馈
 
 如果有问题，欢迎在 [Github Issues](https://github.com/material-components/material-components-harmonyos/issues) 中反馈。
+
+## Material Design 参考文档
+
+[Material.io](https://m3.material.io/)
+[Material Web](https://material-web.dev/)
 
 ## 开源协议
 
