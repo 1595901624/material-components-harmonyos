@@ -4,7 +4,7 @@ import { MDElevatedButton, MDFilledButton } from '@cloris/material-components/In
 @Entry
 @Component
 @Preview
-struct ButtonDemoPage {
+export struct ButtonDemoPage {
   build() {
     Row() {
       Column({

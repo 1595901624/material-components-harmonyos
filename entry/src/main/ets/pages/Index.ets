@@ -1,5 +1,6 @@
 import { MDFilledButton, RippleLayout } from '@cloris/material-components/Index';
 import { promptAction } from '@kit.ArkUI';
+import { ButtonDemoPage } from './ButtonDemoPage';
 
 @Entry
 @Component
@@ -26,17 +27,7 @@ struct Index {
           }
         })
 
-        MDFilledButton({
-          label: "Filled Button",
-          buttonBackgroundColor: Color.Red,
-          buttonRadius: 40,
-          onButtonClick: () => {
-            promptAction.showToast({
-              message: 'Hello World',
-              duration: 2000
-            })
-          }
-        })
+        ButtonDemoPage()
 
         // this.contentLayout()
       }

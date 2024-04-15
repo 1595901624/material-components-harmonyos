@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\luhao\\.ohos\\config\\default_material-components-harmonyos_jSvAriScuhVJBRFlGKm3EY1e6P7HApMC16ubufN4BOc=.cer",
-          "storePassword": "0000001A51C75A7995AF65A12D8A2F5C3BC2F603E205E3F7F86D25B4371ACA3A1C97921B567D8DEA1617",
+          "certpath": "config\\default_material-components-harmonyos_V8vB3hl6YgE1Er6jOY8rbmdq0NP3TVBPPlbTlX5L-h0=.cer",
+          "storePassword": "0000001AC8864C6E61CBE2137AB55E2051E539D706B8F2A25AA8A7A3A79B804146F49D3106906C88C685",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001A6AEDB3CF50AA8D05E177F40F0C4F252954433353F4019260DCF44FE570445481092A9EE2D2C9",
-          "profile": "C:\\Users\\luhao\\.ohos\\config\\default_material-components-harmonyos_jSvAriScuhVJBRFlGKm3EY1e6P7HApMC16ubufN4BOc=.p7b",
+          "keyPassword": "0000001A005234E47D5B699B51282AF91C711A1DA3436F38BD23A52D5AD7578FC6BCC2A2C0162B3EC6FE",
+          "profile": "config\\default_material-components-harmonyos_V8vB3hl6YgE1Er6jOY8rbmdq0NP3TVBPPlbTlX5L-h0=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\luhao\\.ohos\\config\\default_material-components-harmonyos_jSvAriScuhVJBRFlGKm3EY1e6P7HApMC16ubufN4BOc=.p12"
+          "storeFile": "config\\default_material-components-harmonyos_V8vB3hl6YgE1Er6jOY8rbmdq0NP3TVBPPlbTlX5L-h0=.p12"
         }
       }
     ],
