@@ -26,7 +26,6 @@ export struct RippleLayout {
    * The background color of the ripple effect.
    */
   rippleBackgroundColor: ResourceColor = Color.Transparent
-
   /**
    * The foreground color of the ripple effect.
    * only support string type now.
@@ -63,8 +62,11 @@ export struct RippleLayout {
   updateCanvas(): void {
     // clear canvas
     this.context.clearRect(0, 0, this.context.width, this.context.height)
+    this.drawRoundBackground();
+    this.context.clip()
     this.context.beginPath()
     this.context.arc(this._touchX, this._touchY, this._currenRippleRadius, 0, 6.28)
+    this.context.closePath();
     this.context.fillStyle = this.rippleForegroundColor
     this.context.fill()
     // console.log('updateCanvas')
@@ -159,5 +161,64 @@ export struct RippleLayout {
     }, 10)
 
     this.interval = id
+  }
+
+  /**
+   *
+   * draw round rect
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   * @param radius
+   * @param fillColor
+   **/
+  fillRoundRect(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number, fillColor: string) {
+    //圆的直径必然要小于矩形的宽高
+    if (2 * radius > width || 2 * radius > height) {
+      radius = Math.min(width / 2, height / 2)
+    }
+
+    ctx.save();
+    ctx.translate(x, y);
+    //绘制圆角矩形的各个边
+    this.drawRoundRectPath(ctx, width, height, radius);
+
+    ctx.fillStyle = fillColor || "#000"; //若是给定了值就用给定的值否则给予默认值
+    ctx.fill()
+    ctx.restore();
+  }
+
+  /**
+   * draw round rect
+   *
+   * @param ctx
+   * @param width
+   * @param height
+   * @param radius
+   * @param ctx
+   * @param width
+   * @param height
+   * @param radius
+   */
+  drawRoundRectPath(ctx: CanvasRenderingContext2D, width: number, height: number, radius: number) {
+    ctx.beginPath();
+    ctx.arc(width - radius, height - radius, radius, 0, Math.PI / 2);
+    ctx.lineTo(radius, height);
+    ctx.arc(radius, height - radius, radius, Math.PI / 2, Math.PI);
+    ctx.lineTo(0, radius);
+    ctx.arc(radius, radius, radius, Math.PI, Math.PI * 3 / 2);
+    ctx.lineTo(width - radius, 0);
+    ctx.arc(width - radius, radius, radius, Math.PI * 3 / 2, Math.PI * 2);
+    ctx.lineTo(width, height - radius);
+    ctx.closePath();
+  }
+
+  /**
+   * draw round background
+   */
+  drawRoundBackground() {
+    this.fillRoundRect(this.context, this._touchX - this._currenRippleRadius, this._touchY - this._currenRippleRadius,
+      this.context.width, this.context.height, this.backgroundRadius, "#00000000")
   }
 }
