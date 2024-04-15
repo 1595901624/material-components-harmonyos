@@ -12,7 +12,7 @@ A Material Components for HarmonyOS. 一个鸿蒙的 Material 组件库
 - [ ] Button 按钮
     - [x] FilledButton
     - [x] ElevatedButton
-    - [ ] OutlinedButton
+    - [x] OutlinedButton
     - [ ] TextButton
     - [ ] FilledTonalButton
 
