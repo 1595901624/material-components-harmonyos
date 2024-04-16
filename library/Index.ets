@@ -8,3 +8,5 @@ export { MDElevatedButton } from './src/main/ets/components/button/MDElevatedBut
 export { MDOutlinedButton } from './src/main/ets/components/button/MDOutlinedButton'
 export { MDTextButton } from './src/main/ets/components/button/MDTextButton'
 // Button END
+
+export { MDCheckBox } from './src/main/ets/components/checkbox/MDCheckBox'
