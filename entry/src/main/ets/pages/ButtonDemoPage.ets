@@ -1,5 +1,5 @@
 import { promptAction } from '@kit.ArkUI'
-import { MDElevatedButton, MDFilledButton, MDOutlinedButton } from '@cloris/material-components/Index';
+import { MDElevatedButton, MDFilledButton, MDOutlinedButton, MDTextButton } from '@cloris/material-components/Index';
 
 @Entry
 @Component
@@ -13,7 +13,7 @@ export struct ButtonDemoPage {
 
         MDFilledButton({
           label: "Filled Button",
-          buttonBackgroundColor: Color.Red,
+          buttonBackgroundColor: Color.Green,
           buttonRadius: 40,
           onButtonClick: () => {
             promptAction.showToast({
@@ -25,7 +25,6 @@ export struct ButtonDemoPage {
 
         MDElevatedButton({
           label: "Elevated Button",
-          buttonBackgroundColor: Color.Red,
           buttonRadius: 40,
           onButtonClick: () => {
             promptAction.showToast({
@@ -41,6 +40,17 @@ export struct ButtonDemoPage {
           onButtonClick: () => {
             promptAction.showToast({
               message: 'Outlined Button',
+              duration: 2000
+            })
+          }
+        })
+
+        MDTextButton({
+          label: "Text Button",
+          buttonRadius: 40,
+          onButtonClick: () => {
+            promptAction.showToast({
+              message: 'Text Button',
               duration: 2000
             })
           }

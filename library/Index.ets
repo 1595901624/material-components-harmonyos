@@ -6,4 +6,5 @@ export { RippleLayout } from './src/main/ets/basic/RippleLayout'
 export { MDFilledButton } from './src/main/ets/components/button/MDFilledButton'
 export { MDElevatedButton } from './src/main/ets/components/button/MDElevatedButton'
 export { MDOutlinedButton } from './src/main/ets/components/button/MDOutlinedButton'
+export { MDTextButton } from './src/main/ets/components/button/MDTextButton'
 // Button END
