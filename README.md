@@ -15,7 +15,7 @@ A Material Components Library for HarmonyOS. 一个鸿蒙的 Material 组件库
     - [x] OutlinedButton
     - [x] TextButton
     - [ ] FilledTonalButton (暂不考虑实现)
-- 
+- [x] Checkbox 复选框
 
 ## 支持版本
 仅支持 HarmonyOS SDK 11 及以上版本
