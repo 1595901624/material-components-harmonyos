@@ -64,6 +64,14 @@ class CanvasUtil {
     ctx.lineTo(width, height - radius);
     ctx.closePath();
   }
+
+  /**
+   * clear canvas
+   * @param ctx
+   */
+  clearCanvas(ctx: CanvasRenderingContext2D) {
+    ctx.clearRect(0, 0, ctx.width, ctx.height)
+  }
 }
 
 export const canvasUtil = new CanvasUtil()

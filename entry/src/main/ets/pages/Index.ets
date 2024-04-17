@@ -1,6 +1,7 @@
 import { MDFilledButton, RippleLayout } from '@cloris/material-components/Index';
 import { promptAction } from '@kit.ArkUI';
 import { ButtonDemoPage } from './ButtonDemoPage';
+import { CheckBoxDemoPage } from './CheckBoxDemoPage';
 
 @Entry
 @Component
@@ -27,8 +28,8 @@ struct Index {
           }
         })
 
-        ButtonDemoPage()
-
+        // ButtonDemoPage()
+        CheckBoxDemoPage()
         // this.contentLayout()
       }
       .width('100%')

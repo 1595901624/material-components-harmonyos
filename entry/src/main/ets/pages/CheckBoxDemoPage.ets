@@ -1,19 +1,22 @@
-import { promptAction } from '@kit.ArkUI'
-import {
-  MDCheckBox,
-  MDElevatedButton, MDFilledButton, MDOutlinedButton, MDTextButton } from '@cloris/material-components/Index';
+import { MDCheckBox } from '@cloris/material-components/Index';
 
 @Entry
 @Component
 @Preview
-export struct ButtonDemoPage {
+export struct CheckBoxDemoPage {
   build() {
     Row() {
       Column({
         space: 20
       }) {
+        MDCheckBox({
+          indeterminate: false,
+          boxSize: 20
+        })
 
-        MDCheckBox()
+        Toggle({
+          type:ToggleType.Checkbox
+        }).width(120)
 
       }
       .width('100%')
