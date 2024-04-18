@@ -10,3 +10,4 @@ export { MDTextButton } from './src/main/ets/components/button/MDTextButton'
 // Button END
 
 export { MDCheckBox } from './src/main/ets/components/checkbox/MDCheckBox'
+export { MDSwitch } from './src/main/ets/components/switch/MDSwitch'

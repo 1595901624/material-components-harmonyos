@@ -95,6 +95,13 @@ class CanvasUtil {
   clearCanvas(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.width, ctx.height)
   }
+
+  drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number, fillColor: string) {
+    ctx.beginPath()
+    ctx.arc(x, y, radius, 0, Math.PI * 2, false)
+    ctx.fillStyle = fillColor
+    ctx.fill()
+  }
 }
 
 export const canvasUtil = new CanvasUtil()
