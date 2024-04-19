@@ -41,8 +41,8 @@ export struct MDSwitch {
         this._falseRadius = this.context.height / 2 * 0.5
         this._trueRadius = this.context.height / 2 * 0.74
 
-        this.drawSelectedFalse()
-        this.drawSelectedTrue()
+        // this.drawSelectedFalse()
+        // this.drawSelectedTrue()
         // canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#30000000")
         // canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#000000", 2)
         // canvasUtil.drawCircle(this.context, 20, this.context.height / 2, this.context.height / 2 - 8, "#000000")
