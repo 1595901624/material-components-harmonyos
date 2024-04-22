@@ -56,7 +56,7 @@ export struct MDSwitch {
   }
 
   drawSelectedTrue() {
-    // canvasUtil.clearCanvas(this.context)
+    canvasUtil.clearCanvas(this.context)
     canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#30000000")
     canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#000000", 2)
     canvasUtil.drawCircle(this.context, this.context.width - this.context.height / 2 - 4, this.context.height / 2, this._trueRadius, "#000000")
