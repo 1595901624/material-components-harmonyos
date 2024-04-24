@@ -29,6 +29,7 @@ export struct MDSwitch {
   switchWidth: Length = 80
   switchHeight: Length = 40
   radius: number = 80
+  @State checked: boolean = false
   // ************************************private params**********************************************
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
@@ -40,16 +41,28 @@ export struct MDSwitch {
       .onReady(() => {
         this._falseRadius = this.context.height / 2 * 0.5
         this._trueRadius = this.context.height / 2 * 0.74
-
+        this.onDraw()
         // this.drawSelectedFalse()
         // this.drawSelectedTrue()
       })
       .width(this.switchWidth)
       .height(this.switchHeight)
+      .onClick(() => {
+        this.checked = !this.checked
+        this.onDraw()
+      })
+  }
+
+  onDraw() {
+    canvasUtil.clearCanvas(this.context)
+    if (this.checked) {
+      this.drawSelectedTrue()
+    } else {
+      this.drawSelectedFalse()
+    }
   }
 
   drawSelectedFalse() {
-    canvasUtil.clearCanvas(this.context)
     canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#30000000")
     canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#000000", 2)
     canvasUtil.drawCircle(this.context, this.context.height / 2, this.context.height / 2, this._falseRadius, "#000000")
@@ -59,7 +72,6 @@ export struct MDSwitch {
    * draw selected true
    */
   drawSelectedTrue() {
-    canvasUtil.clearCanvas(this.context)
     canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#30000000")
     canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#000000", 2)
     canvasUtil.drawCircle(this.context, this.context.width - this.context.height / 2 - 4, this.context.height / 2, this._trueRadius, "#000000")
