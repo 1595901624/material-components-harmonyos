@@ -9,9 +9,11 @@ export struct SwitchDemoPage {
       Column({
         space: 20
       }) {
+
         MDSwitch({
           checked: true
         })
+
       }
       .width('100%')
     }
