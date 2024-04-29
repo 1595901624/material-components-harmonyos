@@ -42,8 +42,6 @@ export struct MDSwitch {
         this._falseRadius = this.context.height / 2 * 0.5
         this._trueRadius = this.context.height / 2 * 0.74
         this.onDraw()
-        // this.drawSelectedFalse()
-        // this.drawSelectedTrue()
       })
       .width(this.switchWidth)
       .height(this.switchHeight)
