@@ -26,43 +26,115 @@ import { canvasUtil } from '../../util/CanvasUtil'
 @Component
 @Preview
 export struct MDSwitch {
-  switchWidth: Length = 80
-  switchHeight: Length = 40
+  switchWidth: number = 80
+  switchHeight: number = 40
   radius: number = 80
-  @State checked: boolean = false
+  @State @Watch("onUpdateOffsetX") checked: boolean = false
   // ************************************private params**********************************************
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
-  _falseRadius = 0
-  _trueRadius = 0
+  private _falseRadius = 0
+  private _trueRadius = 0
+  /**
+   * the translate offset
+   */
+  @State @Watch("onUpdateCanvas") private _offsetX: number = 0;
+  private _distance: number = 0
+
+  aboutToAppear(): void {
+    // the switch width should not be smaller than height
+    if (this.switchWidth < this.switchHeight) {
+      this.switchWidth = this.switchHeight
+    }
+
+    this._distance = this.switchWidth - this.context.height
+    this.onUpdateOffsetX()
+  }
 
   build() {
     Canvas(this.context)
       .onReady(() => {
         this._falseRadius = this.context.height / 2 * 0.5
         this._trueRadius = this.context.height / 2 * 0.74
-        this.onDraw()
+        // this.onDraw()
+        this.onUpdateCanvas()
       })
       .width(this.switchWidth)
       .height(this.switchHeight)
       .onClick(() => {
         this.checked = !this.checked
-        this.onDraw()
+        if (this.checked) {
+          this.startTranslateTrue()
+        } else {
+          this.startTranslateFalse()
+        }
+        // this.onDraw()
       })
   }
 
-  onDraw() {
-    canvasUtil.clearCanvas(this.context)
+  private _intervalId: number = 0
+
+  startTranslateTrue() {
+    clearInterval(this._intervalId)
+    // this._offsetX = 0
+    setInterval(() => {
+      if (this._offsetX > this._distance) {
+        clearInterval(this._intervalId)
+        return
+      }
+      this._offsetX += 1
+    }, 24)
+  }
+
+  startTranslateFalse() {
+    clearInterval(this._intervalId)
+    // this._offsetX = this._distance
+    setInterval(() => {
+      if (this._offsetX < 0) {
+        clearInterval(this._intervalId)
+        return
+      }
+      this._offsetX -= 1
+    }, 24)
+  }
+
+  onUpdateCanvas() {
+    this.drawToggleStatus()
+  }
+
+  onUpdateOffsetX() {
     if (this.checked) {
-      this.drawSelectedTrue()
+      this._offsetX = this._distance
     } else {
-      this.drawSelectedFalse()
+      this._offsetX = 0
     }
   }
 
+  // onDraw() {
+  //   canvasUtil.clearCanvas(this.context)
+  //   if (this.checked) {
+  //     this.drawSelectedTrue()
+  //   } else {
+  //     this.drawSelectedFalse()
+  //   }
+  // }
+
+  drawToggleStatus() {
+    canvasUtil.clearCanvas(this.context)
+    canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius,
+      "#30000000")
+    canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius,
+      "#000000", 2)
+    canvasUtil.drawCircle(this.context, this.context.height / 2 + this._offsetX, this.context.height / 2,
+      this._falseRadius, "#000000")
+
+  }
+
   drawSelectedFalse() {
-    canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#30000000")
-    canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#000000", 2)
+    canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius,
+      "#30000000")
+    canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius,
+      "#000000", 2)
     canvasUtil.drawCircle(this.context, this.context.height / 2, this.context.height / 2, this._falseRadius, "#000000")
   }
 
@@ -70,8 +142,11 @@ export struct MDSwitch {
    * draw selected true
    */
   drawSelectedTrue() {
-    canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#30000000")
-    canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius, "#000000", 2)
-    canvasUtil.drawCircle(this.context, this.context.width - this.context.height / 2 - 4, this.context.height / 2, this._trueRadius, "#000000")
+    canvasUtil.fillRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius,
+      "#30000000")
+    canvasUtil.strokeRoundRect(this.context, 2, 2, this.context.width - 4, this.context.height - 4, this.radius,
+      "#000000", 2)
+    canvasUtil.drawCircle(this.context, this.context.width - this.context.height / 2, this.context.height / 2,
+      this._trueRadius, "#000000")
   }
 }
