@@ -40,15 +40,13 @@ export struct MDSwitch {
    */
   @State @Watch("onUpdateCanvas") private _offsetX: number = 0;
   private _distance: number = 0
+  private perDistance: number = 10
 
   aboutToAppear(): void {
     // the switch width should not be smaller than height
     if (this.switchWidth < this.switchHeight) {
       this.switchWidth = this.switchHeight
     }
-
-    this._distance = this.switchWidth - this.context.height
-    this.onUpdateOffsetX()
   }
 
   build() {
@@ -58,16 +56,18 @@ export struct MDSwitch {
         this._trueRadius = this.context.height / 2 * 0.74
         // this.onDraw()
         this.onUpdateCanvas()
+        this._distance = this.context.width - this.context.height
+        // 初始化
+        if (this.checked) {
+          this._offsetX = this._distance
+        } else {
+          this._offsetX = 0
+        }
       })
       .width(this.switchWidth)
       .height(this.switchHeight)
       .onClick(() => {
         this.checked = !this.checked
-        if (this.checked) {
-          this.startTranslateTrue()
-        } else {
-          this.startTranslateFalse()
-        }
         // this.onDraw()
       })
   }
@@ -77,25 +77,35 @@ export struct MDSwitch {
   startTranslateTrue() {
     clearInterval(this._intervalId)
     // this._offsetX = 0
-    setInterval(() => {
-      if (this._offsetX > this._distance) {
+    this._intervalId = setInterval(() => {
+      // if (this._offsetX > this._distance) {
+      //   clearInterval(this._intervalId)
+      //   return
+      // }
+      if (this._offsetX + this.perDistance > this._distance) {
+        this._offsetX = this._distance
         clearInterval(this._intervalId)
         return
       }
-      this._offsetX += 1
-    }, 24)
+      this._offsetX += this.perDistance
+    }, 1)
   }
 
   startTranslateFalse() {
     clearInterval(this._intervalId)
     // this._offsetX = this._distance
-    setInterval(() => {
-      if (this._offsetX < 0) {
+    this._intervalId = setInterval(() => {
+      // if (this._offsetX < 0) {
+      //   clearInterval(this._intervalId)
+      //   return
+      // }
+      if (this._offsetX - this.perDistance < 0) {
+        this._offsetX = 0
         clearInterval(this._intervalId)
         return
       }
-      this._offsetX -= 1
-    }, 24)
+      this._offsetX -= this.perDistance
+    }, 1)
   }
 
   onUpdateCanvas() {
@@ -104,9 +114,9 @@ export struct MDSwitch {
 
   onUpdateOffsetX() {
     if (this.checked) {
-      this._offsetX = this._distance
+      this.startTranslateTrue()
     } else {
-      this._offsetX = 0
+      this.startTranslateFalse()
     }
   }
 

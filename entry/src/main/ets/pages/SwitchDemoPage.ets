@@ -11,8 +11,8 @@ export struct SwitchDemoPage {
       }) {
 
         MDSwitch({
-          switchWidth: 120,
-          switchHeight: 40,
+          switchWidth: 200,
+          switchHeight: 100,
           checked: true
         })
 
